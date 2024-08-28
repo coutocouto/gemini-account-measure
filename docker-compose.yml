@@ -18,6 +18,10 @@ services:
       - DB_USER=root
       - DB_PASSWORD=root
       - DB_NAME=gemini-account-measure-database
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+    depends_on:
+      - mysql
+
   mysql:
       container_name: gemini-account-measure-database
       image: mysql:8.0
@@ -25,7 +29,7 @@ services:
         - "3306:3306" 
       environment:
         MYSQL_ROOT_PASSWORD: root
-        MYSQL_DATABASE: root
+        MYSQL_DATABASE: gemini-account-measure-database
       volumes:
         - mysql_data:/var/lib/mysql
 
