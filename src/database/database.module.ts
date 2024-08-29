@@ -1,7 +1,9 @@
-import { Module } from "@nestjs/common";
+import { Global, Module } from "@nestjs/common";
 import { SequelizeModule } from "@nestjs/sequelize";
 import { ConfigService } from "@nestjs/config";
+import { MeasureModel } from "../measure/infra/db/measure.model";
 
+@Global()
 @Module({
   imports: [
     SequelizeModule.forRootAsync({
@@ -14,6 +16,7 @@ import { ConfigService } from "@nestjs/config";
         database: configService.get("DB_NAME"),
         autoLoadModels: true,
         synchronize: true,
+        models: [MeasureModel],
       }),
       inject: [ConfigService],
     }),
