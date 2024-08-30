@@ -205,6 +205,9 @@ const config: Config = {
     ".providers.ts",
     ".input.ts",
     ".output.ts",
+    ".dto.ts",
+    "main.ts",
+    "config.ts",
   ],
   coverageThreshold: {
     global: {
