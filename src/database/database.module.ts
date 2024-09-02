@@ -16,6 +16,7 @@ import { MeasureModel } from "../measure/infra/db/measure.model";
         database: configService.get("DB_NAME"),
         autoLoadModels: true,
         synchronize: true,
+        logging: false,
         models: [MeasureModel],
       }),
       inject: [ConfigService],

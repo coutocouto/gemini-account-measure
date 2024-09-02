@@ -1,8 +1,5 @@
-import { Transform } from "class-transformer";
-
 export class ListMeasureByCustomerOutput {
   measure_id: string;
-  @Transform(({ value }) => value.toISOString())
   measure_datetime: string;
   measure_value: number;
   measure_type: "WATER" | "GAS";

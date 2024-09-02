@@ -1,4 +1,4 @@
-import { fa, faker } from "@faker-js/faker";
+import { faker } from "@faker-js/faker";
 import { Measure, MeasureProps } from "./measure.entity";
 import { v4 as uuidv4 } from "uuid";
 
