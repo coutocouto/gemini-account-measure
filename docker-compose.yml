@@ -1,5 +1,27 @@
 version: '3.8'
 services:
+  app:
+    container_name: gemini-account-measure
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - "80:80"
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    command: yarn start:dev
+    environment:
+      - NODE_ENV=development
+      - DB_HOST=mysql
+      - DB_PORT=3306
+      - DB_USER=root
+      - DB_PASSWORD=root
+      - DB_NAME=gemini-account-measure-database
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+    depends_on:
+      - mysql
+
   mysql:
     container_name: gemini-account-measure-mysql
     image: mysql:8.0
