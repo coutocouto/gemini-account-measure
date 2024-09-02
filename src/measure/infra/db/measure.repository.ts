@@ -30,6 +30,22 @@ export class MeasureRepository implements IMeasureRepository {
     return models.map((model) => MeasureModelMapper.toEntity(model));
   }
 
+  async listByCustomerAndMeasureType(
+    customerCode: string,
+    measureType?: string,
+  ): Promise<Measure[]> {
+    const models = await this.measureModel.findAll({
+      where: {
+        customerCode,
+        ...(measureType && { measureType }),
+      },
+    });
+
+    return models.length
+      ? models.map((model) => MeasureModelMapper.toEntity(model))
+      : null;
+  }
+
   async checkIfExistAMeasureInThisMonthForThisCustomerAndType(
     customerCode: string,
     measureType: string,

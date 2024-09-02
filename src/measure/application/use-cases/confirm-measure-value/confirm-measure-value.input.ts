@@ -7,4 +7,9 @@ export class ConfirmMeasureValueInput {
 
   @IsNotEmpty()
   confirmed_value: number;
+
+  constructor(measure_id: string, confirmed_value: number) {
+    this.measure_id = measure_id;
+    this.confirmed_value = confirmed_value;
+  }
 }

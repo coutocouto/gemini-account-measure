@@ -11,13 +11,20 @@ import {
   UploadedFile,
   Body,
   ValidationPipe,
+  Get,
+  Param,
+  Query,
 } from "@nestjs/common";
+import { ListMeasureByCustomer } from "../../../application/use-cases/list-measure-by-customer/list-measure-by-customer.usecase";
+import { ListMeasureByCustomerDto } from "./dto/list-measure-by-customer.dto";
+import { MeasurePresenter } from "./measure.presenter";
 
 @Controller("")
 export class MeasureController {
   constructor(
     private readonly uploadMeasureUseCase: UploadMeasureUseCase,
     private readonly confirmMeasureValueUseCase: ConfirmMeasureValueUseCase,
+    private readonly listMeasureByCustomer: ListMeasureByCustomer,
   ) {}
 
   @Post("upload")
@@ -55,5 +62,21 @@ export class MeasureController {
     return await this.confirmMeasureValueUseCase.execute(
       confirmMeasureValueDto,
     );
+  }
+
+  @Get("/:customer_code/list")
+  async list(
+    @Param("customer_code") customerCode: string,
+    @Query("measure_type") measureType: "WATER" | "GAS",
+  ) {
+    const listMeasureDto = await new ValidationPipe({
+      errorHttpStatusCode: 422,
+    }).transform(new ListMeasureByCustomerDto(customerCode, measureType), {
+      type: "body",
+      metatype: ListMeasureByCustomerDto,
+    });
+
+    const measures = await this.listMeasureByCustomer.execute(listMeasureDto);
+    return new MeasurePresenter(customerCode, measures);
   }
 }

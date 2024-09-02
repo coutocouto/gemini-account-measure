@@ -5,6 +5,7 @@ import { MeasureModel } from "../../db/measure.model";
 import { getModelToken } from "@nestjs/sequelize";
 import { GoogleGeminiAI } from "../../../../shared/infra/gemini/google-gemini-ai";
 import { ConfirmMeasureValueUseCase } from "../../../application/use-cases/confirm-measure-value/confirm-measure-value.usecase";
+import { ListMeasureByCustomer } from "../../../application/use-cases/list-measure-by-customer/list-measure-by-customer.usecase";
 
 export const REPOSITORIES = {
   MEASURE_REPOSITORY: {
@@ -39,6 +40,13 @@ export const USE_CASES = {
     provide: ConfirmMeasureValueUseCase,
     useFactory: (measureRepository: MeasureRepository) => {
       return new ConfirmMeasureValueUseCase(measureRepository);
+    },
+    inject: [REPOSITORIES.MEASURE_REPOSITORY.provide],
+  },
+  LIST_MEASURE_BY_CUSTOMER_USE_CASE: {
+    provide: ListMeasureByCustomer,
+    useFactory: (measureRepository: MeasureRepository) => {
+      return new ListMeasureByCustomer(measureRepository);
     },
     inject: [REPOSITORIES.MEASURE_REPOSITORY.provide],
   },
