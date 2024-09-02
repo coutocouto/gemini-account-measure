@@ -91,7 +91,7 @@ describe("UploadMeasureUseCase Int Teste", () => {
     await useCase.execute(uploadMeasureDto);
 
     await expect(useCase.execute(uploadMeasureDto)).rejects.toThrow(
-      "There is already a measure for this month",
+      "There is already a reading for this type in the current month",
     );
   });
 

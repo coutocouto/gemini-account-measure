@@ -85,7 +85,7 @@ export class UploadMeasureUseCase {
   }
 
   private async saveFileInTempFolder(file: FileDto): Promise<string> {
-    const tempDir = path.join(__dirname, "..", "temp");
+    const tempDir = path.join(__dirname, "temp");
     const tempFilePath = path.join(tempDir, file.originalname);
 
     try {
