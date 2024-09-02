@@ -8,12 +8,19 @@ export class MeasureRepository implements IMeasureRepository {
 
   async findByID(id: string): Promise<Measure> {
     const model = await this.measureModel.findByPk(id);
-    return MeasureModelMapper.toEntity(model);
+    return model ? MeasureModelMapper.toEntity(model) : null;
   }
 
   async save(measure: Measure): Promise<void> {
     const model = MeasureModelMapper.toModel(measure);
     await this.measureModel.create(model.toJSON());
+  }
+
+  async update(measure: Measure) {
+    const model = MeasureModelMapper.toModel(measure);
+    await this.measureModel.update(model.toJSON(), {
+      where: { measureId: model.measureId },
+    });
   }
 
   async findByCustomerCode(customerCode: string): Promise<Measure[]> {

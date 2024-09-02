@@ -1,4 +1,4 @@
-import { faker } from "@faker-js/faker";
+import { fa, faker } from "@faker-js/faker";
 import { Measure, MeasureProps } from "./measure.entity";
 import { v4 as uuidv4 } from "uuid";
 
@@ -11,7 +11,7 @@ class MeasureFakerBuilder {
       imageUri: faker.image.url(),
       customerCode: faker.string.uuid(),
       measureValue: faker.number.float(),
-      hasConfirmed: faker.datatype.boolean(),
+      hasConfirmed: false,
       measureType: faker.helpers.arrayElement(["WATER", "GAS"]),
       measureDateTime: faker.date.recent(),
     };
@@ -41,8 +41,8 @@ class MeasureFakerBuilder {
     return this;
   }
 
-  withHasConfirmed(hasConfirmed: boolean): MeasureFakerBuilder {
-    this.measureProps.hasConfirmed = hasConfirmed;
+  withHasConfirmed(): MeasureFakerBuilder {
+    this.measureProps.hasConfirmed = true;
     return this;
   }
 

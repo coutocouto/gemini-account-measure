@@ -4,6 +4,7 @@ import { UploadMeasureUseCase } from "../../../application/use-cases/upload-meas
 import { MeasureModel } from "../../db/measure.model";
 import { getModelToken } from "@nestjs/sequelize";
 import { GoogleGeminiAI } from "../../../../shared/infra/gemini/google-gemini-ai";
+import { ConfirmMeasureValueUseCase } from "../../../application/use-cases/confirm-measure-value/confirm-measure-value.usecase";
 
 export const REPOSITORIES = {
   MEASURE_REPOSITORY: {
@@ -33,6 +34,13 @@ export const USE_CASES = {
       return new UploadMeasureUseCase(repo, genAi);
     },
     inject: [REPOSITORIES.MEASURE_REPOSITORY.provide, GoogleGeminiAI],
+  },
+  CONFIRM_MEASURE_VALUE_USE_CASE: {
+    provide: ConfirmMeasureValueUseCase,
+    useFactory: (measureRepository: MeasureRepository) => {
+      return new ConfirmMeasureValueUseCase(measureRepository);
+    },
+    inject: [REPOSITORIES.MEASURE_REPOSITORY.provide],
   },
 };
 

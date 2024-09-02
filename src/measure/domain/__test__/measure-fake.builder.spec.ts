@@ -33,7 +33,7 @@ describe("MeasureFakerBuilder Unit Test", () => {
       .withImageUri(customProps.imageUri)
       .withCustomerCode(customProps.customerCode)
       .withMeasureValue(customProps.measureValue)
-      .withHasConfirmed(customProps.hasConfirmed)
+      .withHasConfirmed()
       .withMeasureType(customProps.measureType)
       .withMeasureDateTime(customProps.measureDateTime)
       .build();

@@ -1,19 +1,24 @@
+import { FileInterceptor } from "@nestjs/platform-express";
+import { UploadMeasureUseCase } from "../../../application/use-cases/upload-measure/upload-measure-usecase";
+import { UploadMeasureDto } from "./dto/upload-measure.dto";
+import { FileDto } from "../../../application/use-cases/upload-measure/file-props.dto";
+import { ConfirmMeasureValueDto } from "./dto/confirm-measure-value.dto";
+import { ConfirmMeasureValueUseCase } from "../../../application/use-cases/confirm-measure-value/confirm-measure-value.usecase";
 import {
   Controller,
   Post,
-  Body,
-  UploadedFile,
   UseInterceptors,
+  UploadedFile,
+  Body,
   ValidationPipe,
 } from "@nestjs/common";
-import { UploadMeasureUseCase } from "../../../application/use-cases/upload-measure/upload-measure-usecase";
-import { UploadMeasureDto } from "./dto/upload-measure.dto";
-import { FileInterceptor } from "@nestjs/platform-express";
-import { FileDto } from "../../../application/use-cases/upload-measure/file-props.dto";
 
 @Controller("")
 export class MeasureController {
-  constructor(private readonly uploadMeasureUseCase: UploadMeasureUseCase) {}
+  constructor(
+    private readonly uploadMeasureUseCase: UploadMeasureUseCase,
+    private readonly confirmMeasureValueUseCase: ConfirmMeasureValueUseCase,
+  ) {}
 
   @Post("upload")
   @UseInterceptors(FileInterceptor("image"))
@@ -41,5 +46,14 @@ export class MeasureController {
     );
 
     return await this.uploadMeasureUseCase.execute(uploadMeasureDto);
+  }
+
+  @Post("confirm")
+  async confirmMeasureValue(
+    @Body() confirmMeasureValueDto: ConfirmMeasureValueDto,
+  ) {
+    return await this.confirmMeasureValueUseCase.execute(
+      confirmMeasureValueDto,
+    );
   }
 }

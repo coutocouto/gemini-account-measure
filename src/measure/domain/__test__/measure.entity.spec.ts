@@ -46,7 +46,7 @@ describe("MeasureRepository Unit Test", () => {
       measureType: "GAS",
     });
 
-    measure.confirm();
+    measure.confirmValue(5);
 
     expect(measure.hasConfirmed).toBeTruthy();
   });
