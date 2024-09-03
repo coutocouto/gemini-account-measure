@@ -6,16 +6,15 @@ um leitor de medições de água e gás usando o Gemini
 
 - **TypeScript**:
 - **Nest.js**
-- **Sequelize**
 - **Gemini-API (https://ai.google.dev/gemini-api/docs/vision?hl=pt-br&lang=node)**
+- **Sequelize**
 - **Docker**
-- **Redis**
+- **Clean Architecture**
 - **MySql**
 
 ### Pré-requisitos
 
 - Docker e Docker Compose
-- Node.js e Yarn
 
 ### Instalação
 
